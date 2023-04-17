@@ -37,6 +37,7 @@ pipeline {
         stage('Deploy'){
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                 sh ('aws eks update-kubeconfig --name my-cluster --region us-east-1')
                  sh 'kubectl apply -f deployment.yml'
                  sh 'kubectl rollout restart deployment ecr-app-octopus-underwater-app'
                 }
